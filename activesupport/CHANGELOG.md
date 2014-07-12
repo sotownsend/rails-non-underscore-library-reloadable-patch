@@ -1,3 +1,10 @@
+*   Fixed a compatibility issue with the `Oj` gem when `core_ext/object/json` is
+    loaded.
+
+    Fixes #16131.
+
+    *Godfrey Chan*
+
 *   `DateTime#to_f` now preserves the fractional seconds instead of always
     rounding to `.0`.
 
