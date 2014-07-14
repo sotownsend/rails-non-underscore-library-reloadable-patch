@@ -389,10 +389,15 @@ module ActiveSupport #:nodoc:
     # Search for a file in autoload_paths matching the provided suffix.
     def search_for_file(path_suffix)
       path_suffix = path_suffix.sub(/(\.rb)?$/, ".rb")
-
+    
+      #Remove underscore for some libraries that do not follow convention (e.g. OmniAuth -> omniauth.rb)
+      alt_path_suffix = path_suffix.gsub("_", "")
+    
       autoload_paths.each do |root|
         path = File.join(root, path_suffix)
+        alt_path = File.join(root, alt_path_suffix)
         return path if File.file? path
+        return alt_path if File.file? alt_path
       end
       nil # Gee, I sure wish we had first_match ;-)
     end
